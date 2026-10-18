@@ -1,0 +1,27 @@
+/* Hide identities before the render hook runs, regardless of tag or nesting. */
+:is(#players, .tely-ctp) :is(.player, [data-user-id], [data-player-id], .player-name, .player-color, .user-name, .user-color, .tely-ctp-user-row),
+:is(#players, .tely-ctp) :is(.player, [data-user-id], [data-player-id], .tely-ctp-user-row) *,
+:is(#players, .tely-ctp) :is(.player, [data-user-id], [data-player-id], .tely-ctp-user-row)::before,
+:is(#players, .tely-ctp) :is(.player, [data-user-id], [data-player-id], .tely-ctp-user-row)::after,
+:is(#players, .tely-ctp) :is(.player, [data-user-id], [data-player-id], .tely-ctp-user-row) *::before,
+:is(#players, .tely-ctp) :is(.player, [data-user-id], [data-player-id], .tely-ctp-user-row) *::after {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Reserve exactly one invisible native row; additional users add no height. */
+.tely-ctp .tely-ctp-user-row:not(.tely-ctp-row-slot) {
+  display: none !important;
+}
+
+/* No offline list or expand control is useful when all identities are hidden. */
+:is(#players, .tely-ctp) :is(#players-inactive, .players-inactive, [data-application-part="inactive"], #players-expand, [data-action="toggleExpanded"]) {
+  display: none !important;
+}
+
+/* Keep the existing trade button visible, including under UI extensions. */
+:is(#players, .tely-ctp) .item-piles-player-list-trade-button,
+:is(#players, .tely-ctp) .item-piles-player-list-trade-button * {
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
